@@ -3,7 +3,7 @@
 
 double cth(double x) {
     if (x < 0) {
-        return cth(-x);
+        return -cth(-x);
     }
 
     double ans = 1;
@@ -25,6 +25,6 @@ double cth(double x) {
 
 
 int main() {
-    printf("my cth=%f, math.h cth=%f", cth(1.1), 1.0/tanh(1.1));
+    printf("my_cth=%f, math_cth=%f", cth(-1.1), 1.0/tanh(-1.1));
     return 0;
 }
