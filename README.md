@@ -1,46 +1,26 @@
 # АВС-ИДЗ3. Крупнов Иван, БПИ217, вариант 14
 
-**Индивидуальное домашнее задание №3 по курсу Архитектуры вычислительных систем. Домашнее задание выполнено на предполагаемую оценку null.**
+**Индивидуальное домашнее задание №3 по курсу Архитектуры вычислительных систем. Домашнее задание выполнено на предполагаемую оценку 6.**
 
 ## Задание
 > Разработать программу, вычисляющую с помощью степенного ряда с точностью не хуже 0,1% значение функции гиперболического котангенса $\coth(x) = \frac{e^x+e^{-x}}{e^x−e^{−x}}$ для заданного параметра x.
 
 
 ## Структура проекта
-* [asm](https://github.com/shar3nda/avs-ihw3/tree/main/asm) — код на ассемблере без флагов оптимизации, в котором **прокомментированы переменные** и операции над ними
-* [asm_opt](https://github.com/shar3nda/avs-ihw3/tree/main/asm) — оптимизированный с помощью флагов компиляции код на ассемблере
-* [asm_reg](https://github.com/shar3nda/avs-ihw3/tree/main/asm) — код на ассемблере без флагов оптимизации, в котором **прокомментированы переменные** и использованы регистры вместо некоторых локальных переменных.
-* [scripts](https://github.com/shar3nda/avs-ihw3/tree/main/scripts) — скрипты для тестирования
-    * [generate_tests.py](https://github.com/shar3nda/avs-ihw3/blob/main/scripts/generate_tests.py) — утилита для генерации тестов на Python
-    * [run_tests.sh](https://github.com/shar3nda/avs-ihw3/blob/main/scripts/run_tests.sh) — bash-скрипт для прогона тестов. Использование: `run_tests.sh ./<executable_name>`
-    * [compile.sh](https://github.com/shar3nda/avs-ihw3/blob/main/scripts/compile.sh) — bash-скрипт для компиляции без оптимизаций
-    * [compile_opt.sh](https://github.com/shar3nda/avs-ihw3/blob/main/scripts/compile_opt.sh) — bash-скрипт для компиляции с оптимизацией консольными флагами
-* [tests](https://github.com/shar3nda/avs-ihw3/tree/main/tests) — автоматически сгенерированные тесты для программы
-    * В файле tests/{i}.in находятся входные данные для i-го теста, а в tests/{i}.out - корректные выходные данные. Непройденные тесты автоматически выводятся скриптом [run_tests.sh](https://github.com/shar3nda/avs-ihw3/blob/main/scripts/run_tests.sh) с помощью diff.
+* [asm](https://github.com/shar3nda/avs-ihw3/tree/main/asm) — код на ассемблере без флагов оптимизации
+* [asm_clean](https://github.com/shar3nda/avs-ihw3/tree/main/asm_clean) — оптимизированный с помощью флагов компиляции и ручных оптимизаций код на ассемблере
+* [asm_commented](https://github.com/shar3nda/avs-ihw3/tree/main/asm_commented) — код на ассемблере без флагов оптимизации, в котором **прокомментированы переменные**.
 * [main](https://github.com/shar3nda/avs-ihw3/blob/main/main) — исполняемый файл программы
-* [main_opt](https://github.com/shar3nda/avs-ihw3/blob/main/main_opt) — исполняемый файл программы, скомпилированный с оптимизациями
-* [main_reg](https://github.com/shar3nda/avs-ihw3/blob/main/main_reg) — исполняемый файл программы, переписанный на регистры
-* [tests.log](https://github.com/shar3nda/avs-ihw3/blob/main/tests.log) — логи тестирования неоптимизированного бинарника
-* [tests_opt.log](https://github.com/shar3nda/avs-ihw3/blob/main/tests_opt.log) — логи тестирования оптимизированного бинарника
-* [tests_reg.log](https://github.com/shar3nda/avs-ihw3/blob/main/tests_reg.log) — логи тестирования бинарника с регистрами
-* [main.c](https://github.com/shar3nda/avs-ihw3/blob/main/main.c), [parseOptions.c](https://github.com/shar3nda/avs-ihw3/blob/main/parseOptions.c), [printHelp.c](https://github.com/shar3nda/avs-ihw3/blob/main/printHelp.c), [countLU.c](https://github.com/shar3nda/avs-ihw3/blob/main/countLU.c), [options.h](https://github.com/shar3nda/avs-ihw3/blob/main/options.h) — исходные файлы на языке C
+* [main_clean](https://github.com/shar3nda/avs-ihw3/blob/main/main_opt) — исполняемый файл программы, скомпилированный с оптимизациями
+* [main.c](https://github.com/shar3nda/avs-ihw3/blob/main/main.c), [Cth.c](https://github.com/shar3nda/avs-ihw3/blob/main/Cth.c), [Cth.h](https://github.com/shar3nda/avs-ihw3/blob/main/Cth.h) — исходные файлы на языке C
 
 # Задания на 4 балла
 
 ## Использование программы
-Программа поддерживает файловый и консольный ввод.
-
-Ключи командной строки:
-```shell
--i <input_file> - путь к входному файлу с данными
--o <output_file> - путь к файлу для вывода
--h - справка
-```
-Если не указан путь к файлу, программа будет принимать ввод с консоли до `EOF` и выведет информацию о тексте в `stdout`.
+Данные вводятся с консоли и выводятся туда же. Необходимо ввести число, для которого нужно найти гиперболический котангенс.
 
 ## Результаты тестирования
-Логи тестирования находятся в файлах [tests.log](https://github.com/shar3nda/avs-ihw3/blob/main/tests.log), [tests_opt.log](https://github.com/shar3nda/avs-ihw3/blob/main/tests_opt.log) и [tests_reg.log](https://github.com/shar3nda/avs-ihw3/blob/main/tests_reg.log). Чтобы самостоятельно провести тестирование, необходимо выполнить `./scripts/run_tests.sh ./main`,`./scripts/run_tests.sh ./main_opt`, `./scripts/run_tests.sh ./main_reg`.
-Тесты генерируются как последовательности ASCII-символов длиной от 500 до 5000 знаков.
+![Тесты](tests.png)
 
 ## Опции компиляции
 Ассемблирование без оптимизаций:
@@ -52,48 +32,49 @@ gcc -masm=intel ./file.c -S -o ./asm/file.s
 gcc -masm=intel \
     -fno-asynchronous-unwind-tables \
     -fno-jump-tables \
-    -fno-stock-protector \
-    -fno-exception \
-    ./file.c \
-    -S -o ./asm_opt/file_opt.s 
+    -fno-stack-protector \
+    -fno-exceptions \
+    -S \
+    ./file.c -o ./asm_clean/file.s 
 ```
 После ассемблирования файлов по отдельности программа компилируется в исполняемый файл:
 ```sh
-gcc asm/* -o main && scripts/run_tests.sh main > tests.log
+gcc asm/* -lm -o main
 ```
 С оптимизациями:
 ```sh
-gcc asm_opt/* -o main_opt && scripts/run_tests.sh main_opt > tests_opt.log
-```
-С регистрами:
-```sh
-gcc asm_reg/* -o main_reg && scripts/run_tests.sh main_reg > tests_reg.log
+gcc asm_clean/* -lm -o main_clean
 ```
 
 ## Оптимизация ассемблированных программ
-Программы оптимизированы с помощью ключей командной строки, описанных выше.
-
+Программы оптимизированы с помощью ключей командной строки, описанных выше. Также проведены ручные оптимизации:
+* Удалены лишние строчки в начале и в конце
+    * `.file	"filename.c"`
+    * `.type	funcname, @function`
+    * `.ident	"GCC: (GNU) 12.2.0"`
+	* `.section	.note.GNU-stack,"",@progbits`
+* Убраны ненужные присваивания через регистр `rax`
 # Задания на 5 баллов
 
 ## Функции с параметрами
-В отдельных файлах реализованы следующие модули:
-* [parseOptions.c](https://github.com/shar3nda/avs-ihw3/blob/main/parseOptions.c) - парсинг опций командной строки и формирование структуры опций программы
-* [printHelp.c](https://github.com/shar3nda/avs-ihw3/blob/main/printHelp.c) - печать справки
-* [countLU.c](https://github.com/shar3nda/avs-ihw3/blob/main/countLU.c) - подсчет маленьких и больших букв в буфере
-* [options.h](https://github.com/shar3nda/avs-ihw3/blob/main/options.h) — описание структуры опций
+В отдельных файле реализована функция `Cth()`:
+* [Cth.c](https://github.com/shar3nda/avs-ihw3/blob/main/Cth.c) - реализация функции
+* [Cth.h](https://github.com/shar3nda/avs-ihw3/blob/main/Cth.h) - заголовочный файл
 
 ## Локальные переменные
-В функциях используются локальные переменные.
+В функции используются локальные переменные.
 
 ## Передача параметров и возвращаемые значения
-В [asm](https://github.com/shar3nda/avs-ihw3/tree/main/asm) комментариями отмечены передаваемые и возвращаемые значения в функциях.
+В [asm_commented](https://github.com/shar3nda/avs-ihw3/tree/main/asm_commented) комментариями отмечены передаваемые и возвращаемые значения в функциях.
 
 ## Связь между стеком и параметрами C
-В [asm](https://github.com/shar3nda/avs-ihw3/tree/main/asm) аналогично отмечено назначение регистров.
+В [asm_commented](https://github.com/shar3nda/avs-ihw3/tree/main/asm_commented) аналогично отмечено назначение регистров.
 
 Функции принимают аргументы 1-6 в регистры `rdi`, `rsi`, `rdx`, `rcx`, `r8` и `r9`, остальные в обратном порядке добавляются на стек.
 
 Регистры `rbx`, `rsp`, `rbp`, `r12`, `r13`, `r14`, и `r15` после выполнения функции сохраняют записанное значение, а `rax`, `rdi`, `rsi`, `rdx`, `rcx`, `r8`, `r9`, `r10` и `r11` затираются.
+
+Для переменных double используются регистры `xmm0 - xmm7`.
 
 # Задания на 6 баллов
 
@@ -113,12 +94,3 @@ gcc asm_reg/* -o main_reg && scripts/run_tests.sh main_reg > tests_reg.log
 ## Сопоставление размеров
 ![Размеры программ](image.png)
 Переписанная на регистры программа обладает меньшим размером.
-
-# Задания на 7 баллов
-
-## Разделение программы
-Программа разделена на несколько единиц компиляции.
-## Ввод/вывод из файла
-Поддерживается ввод и вывод данных из файла. Аргументы задаются в командной строке и проверяются на корректность.
-## Тесты в файлах
-Файлы с автоматически сгенерированными тестами находятся в директории [tests](https://github.com/shar3nda/avs-ihw3/tree/main/tests).
