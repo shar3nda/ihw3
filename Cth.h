@@ -1,0 +1,1 @@
+double Cth(double x);
