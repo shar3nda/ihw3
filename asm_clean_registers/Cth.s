@@ -20,48 +20,48 @@ Cth:
 	jmp	.L4
 .L11:
 	movsd	xmm0, QWORD PTR .LC2[rip]
-	movsd	QWORD PTR -8[rbp], xmm0
+	movq	xmm7, xmm0  # xmm7 = ans
 	movsd	xmm0, QWORD PTR .LC2[rip]
-	movsd	QWORD PTR -32[rbp], xmm0
+	movq	xmm6, xmm0  # xmm6 = prev
 	movsd	xmm0, QWORD PTR .LC2[rip]
-	movsd	QWORD PTR -16[rbp], xmm0
+	movq	xmm5, xmm0  # xmm5 = cur
 	movsd	xmm0, QWORD PTR .LC2[rip]
-	movsd	QWORD PTR -24[rbp], xmm0
+	movq	xmm4, xmm0  # xmm4 = i
 .L8:
-	movsd	xmm0, QWORD PTR -16[rbp]
-	movsd	QWORD PTR -32[rbp], xmm0
-	movsd	xmm1, QWORD PTR -24[rbp]
+	movq	xmm0, xmm5
+	movq	xmm6, xmm0
+	movq	xmm1, xmm4
 	movsd	xmm0, QWORD PTR .LC3[rip]
 	mulsd	xmm0, xmm1
 	mulsd	xmm0, QWORD PTR -40[rbp]
 	call	exp@PLT
 	addsd	xmm0, xmm0
-	movsd	QWORD PTR -16[rbp], xmm0
-	movsd	xmm0, QWORD PTR -16[rbp]
-	subsd	xmm0, QWORD PTR -32[rbp]
+	movq	xmm5, xmm0
+	movq	xmm0, xmm5
+	subsd	xmm0, xmm6
 	movq	xmm1, QWORD PTR .LC4[rip]
 	andpd	xmm1, xmm0
 	movsd	xmm0, QWORD PTR .LC5[rip]
 	comisd	xmm0, xmm1
 	ja	.L12
-	movsd	xmm0, QWORD PTR -8[rbp]
-	addsd	xmm0, QWORD PTR -16[rbp]
-	movsd	QWORD PTR -8[rbp], xmm0
-	movsd	xmm1, QWORD PTR -24[rbp]
+	movq	xmm0, xmm7
+	addsd	xmm0, xmm5
+	movq	xmm7, xmm0
+	movq	xmm1, xmm4
 	movsd	xmm0, QWORD PTR .LC2[rip]
 	addsd	xmm0, xmm1
-	movsd	QWORD PTR -24[rbp], xmm0
+	movq	xmm4, xmm0
 	pxor	xmm0, xmm0
-	ucomisd	xmm0, QWORD PTR -24[rbp]
+	ucomisd	xmm0, xmm4
 	jp	.L8
 	pxor	xmm0, xmm0
-	ucomisd	xmm0, QWORD PTR -24[rbp]
+	ucomisd	xmm0, xmm4
 	je	.L7
 	jmp	.L8
 .L12:
 	nop
 .L7:
-	movsd	xmm0, QWORD PTR -8[rbp]
+	movq	xmm0, xmm7
 .L4:
 	leave
 	ret
